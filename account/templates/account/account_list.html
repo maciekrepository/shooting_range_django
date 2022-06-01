@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+
+  <div class="container p-0">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <h3>Użytkownicy</h3>
+    </div>
+    <div class="row justify-content-center">
+	    <div class="col-auto">
+	    	<div class="table-responsive">
+		      <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed">
+		      	<thead class="table-secondary">
+		        	<tr>
+						<td class="mu"><b>Email</b></td>
+						<td class="mu"><b>Imie</b></td>
+						<td class="mu"><b>Nazwisko</b></td>
+						<td class="mu"><b>Licencja</b></td>
+						<td class="mu"><b>Klub</b></td>
+						<td class="mu"><b>RTS</b></td>
+						<td class="mu"><b>Edycja</b></td>
+						<td class="mu"><b>Usuń</b></td>
+					</tr>
+				</thead>
+		        	{% for osoba in object_list %}
+		        	<tr>
+			            <td class="mu">{{ osoba.email }}</td>
+			        	<td class="mu">{{ osoba.imie }}</td>
+			        	<td class="mu">{{ osoba.nazwisko }}</td>
+			        	<td class="mu">{{ osoba.licencja }}</td>
+			        	<td class="mu">{{ osoba.klub }}</td>
+
+			        	<td class="mu">
+			        		<label class="inline-flex items-center">
+			        			<input type="checkbox" {% if osoba.rts == 1 %} checked="checked" {% endif %} onclick="return false">
+			        		</label>
+			        	</td>
+						<td><a href="{% url 'account_edit' osoba.id pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Edytuj użytkownika</a></td>
+						<td><a href="{% url 'account_delete' osoba.id pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Usuń użytkownika</a></td>
+					</tr>	
+		        	{% endfor %}
+		      </table>
+		     </div>
+	    </div>
+	</div>
+	<div class="d-flex justify-content-center" >
+		<div>
+			<a href="{% url 'register_no_login' pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Dodaj użytkownika</a>
+		</div>
+	</div>
+  </div>
+
+
+
+
+{% endblock content %}
+
+

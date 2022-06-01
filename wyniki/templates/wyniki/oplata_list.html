@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+
+  <div class="container p-0">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <h3>Użytkownicy</h3>
+    </div>
+    <div class="row justify-content-center">
+	    <div class="col-auto">
+	    	<div class="table-responsive">
+		      <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed">
+		      	<thead class="table-secondary">
+		        	<tr>
+
+						<td class="mu"><b>Lp</b></td>
+						<td class="mu"><b>Zawodnik</b></td>
+						<td class="mu"><b>Email</b></td>
+						<td class="mu"><b>Konkurencje</b></td>
+						<td class="mu"><b>Edycja opłat</b></td>
+					</tr>
+				</thead>
+		        	{% for i in object_list.0 %}
+			        	<tr>
+				        	<td class="mu">{{forloop.counter}}</td>
+				        	<td class="mu">{{ i }}</td>
+				        	<td class="mu">{{ i.email }}</td>
+
+				        	<td class="mu">{% for j in object_list.1 %}{% if i.email == j.1 %} {{ j.2 }} <br> {% endif %}{% endfor %}</td>
+
+							<td><a href="{% url 'oplata_update' i.id pk%}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Edytuj opłatę</a></td>
+
+						</tr>	
+		        	{% endfor %}
+		      </table>
+		     </div>
+	    </div>
+	</div>
+
+  </div>
+
+
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if dodawanie_zawodnika == 1 %}
+	<section class="oferta" id="oferta">
+		<div class="d-flex justify-content-center" id="contentlogin">
+			<form class="site-form" id="dodajzawodnikaform" action="{% url 'rejestracja_na_zawody'%}" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form}}
+				<input type="submit" value="Create">
+			</form>
+		</div>
+
+	</section>
+{% else %}
+		<section class="oferta" id="oferta">
+			<div class="d-flex justify-content-center" id="contentlogin">
+					<div class="text">
+						<h3>Rejestracja zamknięta</h3>
+					</div>
+			</div>
+		</section>
+{% endif %}
+
+{% endblock %}
+
+
+

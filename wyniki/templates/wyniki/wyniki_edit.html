@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block content %}
+{% load tailwind_filters %}
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-4 py-4 mx-auto">
+  	<div class="row justify-content-center">
+  		<div class="col-auto">
+  			<div class="table-responsive">
+  				<p>Edytujesz wynik konkurencji {{ cont.zawody }} dla {{ cont.zawodnik }}</p>
+					<form method="post">{% csrf_token %}
+						{% for field in form %}
+							<p>
+								{% for error in field.errors %}
+									<p style="color: red;">Wprowadzono nieprawidłową wartość dla pola {{ field.label }}. {{error}}</p>
+								{% endfor %}
+							</p>
+						{% endfor %}
+
+						{% for error in form.non_field_errors %}
+								<p style="color: red;">{{error}}</p>
+						{% endfor %}
+
+						  <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+    						<thead class="table-secondary">
+    							<tr>
+    								<td class="m"><b>Etykieta</b></td>
+    								<td class="m"><b>Wynik</b></td>
+    							</tr>
+    						</thead>
+    						<tr>
+    							<td>X</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueX()" value="Decrease Value">-</div>
+	    								<input type="text" name="X" id="inputX" class="form-control"  value="{{form.X.value}}">
+	    								<div class="value-button" id="increase" onclick="increaseValueX()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						<tr>
+    						  <td>10</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueXx()" value="Decrease Value">-</div>
+    									<input type="text" name="Xx" id="inputXx" class="form-control"  value="{{form.Xx.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValueXx()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						<tr>
+    							<td>9</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuedziewiec()" value="Decrease Value">-</div>
+    									<input type="text" name="dziewiec" id="inputdziewiec" class="form-control"  value="{{form.dziewiec.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuedziewiec()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						<tr>
+    							<td>8</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueosiem()" value="Decrease Value">-</div>
+    									<input type="text" name="osiem" id="inputosiem" class="form-control"  value="{{form.osiem.value}}" required> 
+	    								<div class="value-button" id="increase" onclick="increaseValueosiem()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>    			
+    						<tr>
+    							<td>7</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuesiedem()" value="Decrease Value">-</div>
+    									<input type="text" name="siedem" id="inputsiedem" class="form-control"  value="{{form.siedem.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuesiedem()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>   			
+    						<tr>
+    							<td>6</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueszesc()" value="Decrease Value">-</div>
+    									<input type="text" name="szesc" id="inputszesc" class="form-control"  value="{{form.szesc.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValueszesc()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>   		
+    						<tr>
+    							<td>5</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuepiec()" value="Decrease Value">-</div>
+    									<input type="text" name="piec" id="inputpiec" class="form-control"  value="{{form.piec.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuepiec()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>   						
+    						<tr>
+    							<td>4</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuecztery()" value="Decrease Value">-</div>
+    									<input type="text" name="cztery" id="inputcztery" class="form-control"  value="{{form.cztery.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuecztery()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>   					
+    						<tr>
+    							<td>3</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuetrzy()" value="Decrease Value">-</div>
+    									<input type="text" name="trzy" id="inputtrzy" class="form-control"  value="{{form.trzy.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuetrzy()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>   	
+    						<tr>
+    							<td>2</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuedwa()" value="Decrease Value">-</div>
+    									<input type="text" name="dwa" id="inputdwa" class="form-control"  value="{{form.dwa.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuedwa()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>  					
+	    					<tr>
+    							<td>1</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuejeden()" value="Decrease Value">-</div>
+    									<input type="text" name="jeden" id="inputjeden" class="form-control"  value="{{form.jeden.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuejeden()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>
+	    					<tr>
+    							<td>Kara</td>
+    							<td>{{ form.kara }}</td>
+    						</tr>  	  				
+	    					<tr>
+    							<td>Kara punktowa</td>
+    							<td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValuekara_punktowa()" value="Decrease Value">-</div>
+    									<input type="text" name="kara_punktowa" id="inputkara_punktowa" class="form-control"  value="{{form.kara_punktowa.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValuekara_punktowa()" value="Increase Value">+</div>
+	    							</div>
+    							</td>
+    						</tr>  	
+    					</table>		
+	
+						<button type="submit" class="mt-1 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">Zapisz</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+  </div>
+</section>
+
+{% endblock content %}	

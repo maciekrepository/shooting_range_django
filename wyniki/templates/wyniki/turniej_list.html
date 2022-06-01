@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Turnieje</h1>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <table class="table table-hover table-bordered table-responsive mx-auto w-auto align-middle md:text-center">
+        <thead class="table-secondary">
+          <tr>
+        <td class="m"><b>Nazwa</b></td>
+        <td class="m"><b>Id</b></td>
+        <td class="m"><b>Rejestracja</b></td>
+        <td class="m"><b>Klasyfikacja generalna</b></td>
+        <td class="m"><b>Edytuj</b></td>
+        <td class="m"><b>Usuwanie</b></td>
+      </tr>
+    </thead>
+          {% for turniej in object_list %}
+          <tr>
+              <td class="m">{{ turniej.nazwa }}</td>
+              <td class="m">{{ turniej.id }}</td>
+            <td class="m">
+              <label class="inline-flex items-center">
+                <input type="checkbox" {% if turniej.rejestracja == 1 %} checked="checked" {% endif %} onclick="return false">
+              </label>
+            </td>
+            <td class="m">
+              <label class="inline-flex items-center">
+                <input type="checkbox" {% if turniej.klasyfikacja_generalna == 1 %} checked="checked" {% endif %} onclick="return false">
+              </label>
+            </td>
+            <td class="m">
+              <a href="{% url 'turniej_edit' turniej.pk pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><p class="m m-0 p-0">Edytuj</p></a>
+            </td> 
+            <td>
+              <a href="{% url 'turniej_delete' turniej.pk pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><p class="m m-0 p-0">Usuń turniej</p></a>
+            </td>
+      </tr> 
+          {% endfor %}
+      </table>
+    </div>
+  <div class="d-flex justify-content-center" >
+    <div>
+      <a href="{% url 'turniej_add' pk%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"<p class="m m-0 p-0">Dodaj turniej</a></a>
+    </div>
+  </div>
+  </div>
+
+
+
+
+{% endblock content %}
+

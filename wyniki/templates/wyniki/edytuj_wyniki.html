@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for wynikiencja in wyniki %}
+<div class="container pt-6">
+			<div class="d-flex justify-content-center" >
+				<div>
+					{% for i in zawody_nazwa %}
+						{% if forloop.counter == forloop.parentloop.counter %}
+						<h3>{{ i }}</h3>
+						{% endif %}
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+				    <div class="table-responsive">
+    					<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+    						<thead class="table-secondary">
+    							<tr>
+    								<td class="m"><b>Zawodnik</b></td>
+    								<td class="m"><b>X</b></td>
+    								<td class="m"><b>10</b></td>
+    								<td class="m"><b>9</b></td>
+    								<td class="m"><b>8</b></td>
+    								<td class="m"><b>7</b></td>
+    								<td class="m"><b>6</b></td>
+    								<td class="m"><b>5</b></td>
+    								<td class="m"><b>4</b></td>
+    								<td class="m"><b>3</b></td>
+    								<td class="m"><b>2</b></td>
+    								<td class="m"><b>1</b></td>
+    								<td class="m"><b>Kara</b></td>
+                                    <td class="m"><b>Amunicja klubowa</b></td>
+                                    <td class="m"><b>Broń klubowa</b></td>
+    								<!-- <td class="m"><b>Suma</b></td> -->
+                                    <td class="m"><b>Wynik</b></td>
+                                    <!-- <td class="m"><b>Kara</b></td> -->
+    								<td class="m"><b>Edycja</b></td>
+    							</tr>
+    						</thead>
+    						{% for osoba in wynikiencja %}
+    						<tr>
+    							<td class="m">{{osoba.zawodnik}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="X">{{osoba.X}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="Xx">{{osoba.Xx}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="dziewiec">{{osoba.dziewiec}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="osiem">{{osoba.osiem}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="siedem">{{osoba.siedem}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="szesc">{{osoba.szesc}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="piec">{{osoba.piec}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="cztery">{{osoba.cztery}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="trzy">{{osoba.trzy}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="dwa">{{osoba.dwa}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="jeden">{{osoba.jeden}}</td>
+    							<td class="m" data-id="{{ osoba.id }}" data-type="jeden">{{osoba.kara_punktowa}}</td>
+                                <td class="mu">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" {% if osoba.amunicja_klubowa == 1 %} checked="checked" {% endif %} onclick="return false">
+                                    </label>
+                                </td>
+                                <td class="mu">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" {% if osoba.bron_klubowa == 1 %} checked="checked" {% endif %} onclick="return false">
+                                    </label>
+                                </td>
+    							<!-- <td class="m" data-id="{{ osoba.id }}" data-type="wynik">{{osoba.wynik}}</td> -->
+                                <td class="m" data-id="{{ osoba.id }}" data-type="wynik">{{osoba.result}}</td>
+                                <!-- <td class="m" data-id="{{ osoba.id }}" data-type="wynik">{{osoba.kara}}</td> -->
+                                {% if request.user.rts or not osoba.edited_by_sedzia %}
+    							<td class="m p-0 m-0">
+    								<a href="{% url 'wyniki_edit' osoba.id pk%}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">
+    									<p class="m m-0 p-0">Edytuj</p>
+    								</a>
+    							</td>
+    							{% else %}
+    							<td class="m p-0 m-0">
+    								<p class="m m-0 p-0">Wynik edytowany</p>
+    							</td>
+    							{% endif %}
+    						</tr>
+    						{% endfor %}
+    					</table>
+    				</div>
+				</div>
+			</div>
+
+
+	</div>
+{% endfor %}
+
+
+
+
+
+{% endblock %}
+
+

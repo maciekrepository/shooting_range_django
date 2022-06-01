@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load tailwind_filters %}
+
+{% block title %}
+  Edycja "{{ course.title }}"
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-center" >
+    <p>Edytujesz opłaty zawodnika {{account }}</p>
+  </div>
+        
+            
+
+            <form method="post" class="widthauto">
+              {% csrf_token %}
+                {{ formset.management_form }}
+               
+                  <div class="table-responsive">
+                    <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+                      <tr>
+                         {% for form in formset %}
+                          <td class="mu"><p><b>{{ form.instance.zawody|title }}</b></p></td>
+
+                          {% endfor %}
+                      </tr>
+                      <tr>
+                         {% for form in formset %}
+                          <td class="mu">
+                            {{ form.as_p }}
+                           </td>
+                          {% endfor %}
+                      </tr>
+
+                    </table>
+                    </div>
+                    <br>              
+                    <br>              
+                    <br>              
+              
+                            <input type="submit" class="btn btn-primary btn-lg active" value="Zapisz">
+            </form>
+        
+
+{% endblock %}
+

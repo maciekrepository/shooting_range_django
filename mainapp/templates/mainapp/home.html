@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">Witaj</h1>
+      {% if request.user.is_authenticated %}
+      <p class="fs-5 text-muted">Teraz możesz zapisać się na zawody lub sprawdzić wyniki</p>
+      {% else %}
+      <p class="fs-5 text-muted">Zaloguj się lub zarejestruj żeby przejść dalej</p>
+      {% endif %}
+      <br>
+      <p class="fs-5 text-muted mb-0">Napotkałeś problem? Napisz na:</p>
+      <p class="fs-5 text-muted mt-0">pomoc.zawodylts@gmail.com</p>
+    </div>
+
+
+
+{% endblock content %}

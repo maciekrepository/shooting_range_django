@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for wynikiencja in wyniki %}
+<section class="oferta" id="oferta">
+<!-- 		<div class="title white">
+			<h2 class="titleText"> <span>M</span>oje tuzy<span>.</span></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</div> -->
+			<div class="d-flex justify-content-center" >
+				<div>
+					{% for i in zawody_nazwa %}
+						{% if forloop.counter == forloop.parentloop.counter %}
+						<h3>{{ i }}</h3>
+						{% endif %}
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<table class="table table-hover table-bordered table-responsive">
+						<thead class="table-secondary">
+							<tr>
+								<td class="league_table"><b>Zawodnik</b></td>
+								<td class="league_table"><b>X</b></td>
+								<td class="league_table"><b>/</b></td>
+								<td class="league_table"><b>9</b></td>
+								<td class="league_table"><b>8</b></td>
+								<td class="league_table"><b>7</b></td>
+								<td class="league_table"><b>6</b></td>
+								<td class="league_table"><b>5</b></td>
+								<td class="league_table"><b>4</b></td>
+								<td class="league_table"><b>3</b></td>
+								<td class="league_table"><b>2</b></td>
+								<td class="league_table"><b>1</b></td>
+								<td class="league_table"><b>Suma</b></td>
+								<td class="league_table"><b>Edycja</b></td>
+								<td class="league_table"><b></b></td>
+							</tr>
+						</thead>
+						{% for osoba in wynikiencja %}
+						<tr>
+							<td class="league_table">{{osoba.zawodnik}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="X">{{osoba.X}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="Xx">{{osoba.Xx}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="dziewiec">{{osoba.dziewiec}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="osiem">{{osoba.osiem}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="siedem">{{osoba.siedem}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="szesc">{{osoba.szesc}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="piec">{{osoba.piec}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="cztery">{{osoba.cztery}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="trzy">{{osoba.trzy}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="dwa">{{osoba.dwa}}</td>
+							<td class="editable" data-id="{{ osoba.id }}" data-type="jeden">{{osoba.jeden}}</td>
+							<td class="editablee" data-id="{{ osoba.id }}" data-type="wynik">{{osoba.wynik}}</td>
+							<td><a href="{% url 'wyniki_edit' slug=osoba.slug nr_zawodow=osoba.zawody.id %}">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit
+								</button>
+								</a>
+							</td>
+							<td class="editablee" data-id="{{ osoba.id }}" data-type="komunikat" id="myid">{{osoba.komunikat}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+
+		
+	</section>
+{% endfor %}
+
+<!-- <script>
+	$(document).ready(function(){
+		$(document).on("dblclick",".editable",function(){
+			var value=$(this).text();
+			var input="<input type='number' class='input-data' value='"+value+"' class='form-control'>";
+			$(this).html(input);
+			$(this).removeClass("editable")
+		})
+
+		$(document).on("blur",".input-data", function(){
+			const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+			var value=$(this).val();
+			var td=$(this).parent("td");
+			var currentRow=$(this).closest("tr");
+			var col1=currentRow.find("td:eq(13)");
+
+			// var tdm=$(komunikat).parent("td")
+			if (value in array){
+				// console.log(value)
+				$(this).remove();
+				td.html(value);
+				td.addClass("editable");
+				var type=td.data("type");
+				var type_col1=col1.data("type");
+				// console.log(td.data("id"))
+				var zmienna1=parseInt(currentRow.find("td:eq(1)").text());
+				var zmienna2=parseInt(currentRow.find("td:eq(2)").text());
+				var zmienna3=parseInt(currentRow.find("td:eq(3)").text());
+				var zmienna4=parseInt(currentRow.find("td:eq(4)").text());
+				var zmienna5=parseInt(currentRow.find("td:eq(5)").text());
+				var zmienna6=parseInt(currentRow.find("td:eq(6)").text());
+				var zmienna7=parseInt(currentRow.find("td:eq(7)").text());
+				var zmienna8=parseInt(currentRow.find("td:eq(8)").text());
+				var zmienna9=parseInt(currentRow.find("td:eq(9)").text());
+				var zmienna10=parseInt(currentRow.find("td:eq(10)").text());
+				var zmienna11=parseInt(currentRow.find("td:eq(11)").text());
+				var count=zmienna1*10+zmienna2*10+zmienna3*9+zmienna4*8+zmienna5*7+zmienna6*6+zmienna7*5+zmienna8*4+zmienna9*3+zmienna10*2+zmienna11*1;
+				var liczba_strzalow=zmienna1+zmienna2+zmienna3+zmienna4+zmienna5+zmienna6+zmienna7+zmienna8+zmienna9+zmienna10+zmienna11;
+				var suma=currentRow.find("td:eq(12)");
+				// var typesuma=suma.data("type");
+				suma.html(count)
+				suma.addClass("editable")
+				// console.log(zmienna1*10+zmienna2*9)
+				// col1.html(" ")
+				// col1.addClass(" ")
+				if (liczba_strzalow > 10){
+					col1.html("Więcej niż 10 strzałów");
+					col1.addClass("editable");
+					sendToServer(td.data("id"), value, type);
+					sendToServer(col1.data("id"), "Więcej niż 10 strzałów", type_col1);
+				} else{
+					col1.html(" ")
+					col1.addClass(" ")
+					sendToServer(td.data("id"), value, type);
+					sendToServer(col1.data("id"), "", type_col1);
+				}
+				// sendToServer(suma.data("id"), count, typesuma);
+			} else {
+				td.html("zlawartosc");
+				td.addClass("editable");
+
+				// tdm.html("lipnawartosc");
+				// tdm.addClass("editable");
+			}
+		})
+		$(document).on("keypress",".input-data", function(e){
+			var key=e.which;
+			if(key==13){
+				const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+				var value=$(this).val();
+				var td=$(this).parent("td");
+				var currentRow=$(this).closest("tr");
+				var col1=currentRow.find("td:eq(13)");
+
+				// var tdm=$(komunikat).parent("td")
+				if (value in array){
+					// console.log(value)
+					$(this).remove();
+					td.html(value);
+					td.addClass("editable");
+					var type=td.data("type");
+					var type_col1=col1.data("type");
+					// console.log(td.data("id"))
+					var zmienna1=parseInt(currentRow.find("td:eq(1)").text());
+					var zmienna2=parseInt(currentRow.find("td:eq(2)").text());
+					var zmienna3=parseInt(currentRow.find("td:eq(3)").text());
+					var zmienna4=parseInt(currentRow.find("td:eq(4)").text());
+					var zmienna5=parseInt(currentRow.find("td:eq(5)").text());
+					var zmienna6=parseInt(currentRow.find("td:eq(6)").text());
+					var zmienna7=parseInt(currentRow.find("td:eq(7)").text());
+					var zmienna8=parseInt(currentRow.find("td:eq(8)").text());
+					var zmienna9=parseInt(currentRow.find("td:eq(9)").text());
+					var zmienna10=parseInt(currentRow.find("td:eq(10)").text());
+					var zmienna11=parseInt(currentRow.find("td:eq(11)").text());
+					var count=zmienna1*10+zmienna2*10+zmienna3*9+zmienna4*8+zmienna5*7+zmienna6*6+zmienna7*5+zmienna8*4+zmienna9*3+zmienna10*2+zmienna11*1;
+					var liczba_strzalow=zmienna1+zmienna2+zmienna3+zmienna4+zmienna5+zmienna6+zmienna7+zmienna8+zmienna9+zmienna10+zmienna11;
+					var suma=currentRow.find("td:eq(12)");
+					// var typesuma=suma.data("type");
+					suma.html(count)
+					suma.addClass("editable")
+					// console.log(zmienna1*10+zmienna2*9)
+					col1.html(" ")
+					col1.addClass(" ")
+					if (liczba_strzalow > 10){
+						col1.html("Więcej niż 10 strzałów");
+						col1.addClass("editable");
+						sendToServer(td.data("id"), value, type);
+						sendToServer(col1.data("id"), "Więcej niż 10 strzałów", type_col1);
+					} else{
+						col1.html(" ")
+						col1.addClass(" ")
+						sendToServer(td.data("id"), value, type);
+						sendToServer(col1.data("id"), "", type_col1);
+					}
+					} else {
+						td.html("zlawartosc");
+						td.addClass("editable");
+
+						// tdm.html("lipnawartosc");
+						// tdm.addClass("editable");
+					}
+			}
+		})
+
+
+		function sendToServer(id, value, type){
+			console.log(id);
+			console.log(value);
+			console.log(type);
+				$.ajax({
+					url:"http://127.0.0.1:8000/savestudent/",
+					type:"POST",
+					data:{id:id,type:type,value:value},
+				})
+				.done(function(response){
+					console.log(response);
+				})
+				.fail(function(){
+					console.log("error occured");
+				})
+		}
+	});
+</script>
+
+ -->
+
+
+
+{% endblock %}
+
+

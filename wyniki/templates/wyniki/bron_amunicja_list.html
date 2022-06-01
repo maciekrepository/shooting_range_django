@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+
+  <div class="container p-0">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+
+    </div>
+    <div class="row justify-content-center">
+	    <div class="col-auto">
+	    	<div class="table-responsive">
+
+		      <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed">
+		      	<thead class="table-secondary">
+		        	<tr>
+
+
+						<td class="mu"><b>Zawody</b></td>
+						<td class="mu"><b>Broń klubowa</b></td>
+						<td class="mu"><b>Amunicja klubowa</b></td>
+
+
+					</tr>
+				</thead>
+					{% for i in abr %}
+		        	<tr>
+			        	<td class="mu">{{ i.zawody__nazwa }}</td>
+			        	<td class="mu">{% if i.bcount == 0 %}0{% elif i.bcount == 1 %}1{%else%}{{ i.bcount }}{% endif %}</td>
+			        	<td class="mu">{% if i.acount == 0 %}0{% elif i.acount == 1 %}1{%else%}{{ i.acount }}{% endif %}</td>
+					</tr>	
+					{% endfor %}
+
+		      </table>
+
+
+
+
+
+		     </div>
+	    </div>
+	</div>
+
+  </div>
+
+
+
+
+{% endblock content %}
+
+
+

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  color: black;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  /*color: black;*/
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-signin .form-floating input::placeholder{
+	color: black;
+	opacity: 1;
+};
+
+</style>
+
+ <div class="container pt-6">
+  <div class="row justify-content-center">
+
+
+      <form class="form-signin" method="post">{% csrf_token %}
+
+          <h1 class="h3 mb-3 fw-normal">Login</h1>
+          <div class="form-floating">
+            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Podaj mail">
+
+          </div>
+          <div class="form-floating">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Podaj hasło">
+
+          </div>
+
+
+      	{% for field in login_form %}
+      	<p>
+      		{% for error in field.errors %}
+      			<p style="color: red;">{{error}}</p>
+      		{% endfor %}
+      	</p>
+      	{% endfor %}
+
+      	{% if login_form.non_field_errors %}
+      		<div style="color: red;">
+      			<p>{{login_form.non_field_errors}}</p>
+      		</div>
+      	{% endif %}
+
+
+
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>
+
+       </form>
+
+        <div class="d-flex justify-content-center" >
+          <div>
+           <a href="{% url 'password_reset' pk%}"class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><p class="m m-0 p-0">Resetuj hasło</p></a>
+          </div>
+        </div>  
+
+  </div>
+
+</div>
+
+{% endblock content%}

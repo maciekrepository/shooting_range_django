@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	
+
+	<head>
+		<title>Zawody strzeleckie</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'css/static.css' %}" rel="stylesheet" type="text/css">
+	    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+	</head>
+	<body>
+	<header>
+		<a href="#" class="logo">
+				<span> 
+					{{nazwa_turnieju}}
+					<br>
+			{% if request.user.is_authenticated %}
+					Witaj {{request.user}}
+			{% endif %}
+				</span>
+		</a>
+		<div class="MenuToggle" onclick="toggleMenu();"></div>
+		<ul class="navigation">
+			{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' pk=pk %}" onclick="toggleMenu();">Wylogowanie</a></li>
+				{% if request.user.rodo_accepted %}
+					<li><a href="{% url 'start' %}" onclick="toggleMenu();">Strona główna</a></li>
+					{% if request.user.is_admin or request.user.is_sedzia %}
+	    				<li><a href="{% url 'sedzia_edit' pk=user.id pk_turniej=pk%}" onclick="toggleMenu();">Edytuj profil</a></li>
+	    			{% else %}
+	    				<li><a href="{% url 'account_edit_personal' pk=user.id pk_turniej=pk%}" onclick="toggleMenu();">Edytuj profil</a></li>
+	    			{% endif %}
+					<!-- <li><a href="{% url 'home' pk=pk %}" onclick="toggleMenu();">Strona główna</a></li> -->
+					
+					<li><a href="{% url 'rejestracja_na_zawody' pk=pk %}" onclick="toggleMenu();">Zapisy do konkurencji</a></li>
+					<li><a href="{% url 'wyniki' pk=pk %}" onclick="toggleMenu();">Wyniki</a></li>
+					{% if user.is_superuser or user.rts %}
+						<li><a href="{% url 'users' pk=pk %}" onclick="toggleMenu();">Zarządzaj użytkownikami</a></li>
+					{% endif %}
+					{% if user.is_superuser or user.rts %}
+						<li><a href="{% url 'oplata_list' pk=pk %}" onclick="toggleMenu();">Opłaty</a></li>
+						<li><a href="{% url 'bron_amunicja_list' pk=pk %}" onclick="toggleMenu();">Broń/Amunicja</a></li>
+					{% endif %}
+					{% if user.is_superuser %}
+						<li><a href="{% url 'zawody_lista' pk=pk %}" onclick="toggleMenu();">Edycja konkurencji</a></li>
+						<li><a href="{% url 'turnieje' pk=pk%}" onclick="toggleMenu();">Turnieje</a></li>
+						<li><a href="{% url 'sedzia_lista' pk=pk %}" onclick="toggleMenu();">Zarządzaj sędziami</a></li>
+					{% endif %}
+					{% if request.user.is_sedzia %}
+						<li><a href="{% url 'wyniki_edycja' pk=pk %}" onclick="toggleMenu();">Edytuj Wyniki</a></li>
+					{% endif%}
+				{% endif %}
+			{% else %}
+				<!-- <li><a href="{% url 'home' pk=pk %}" onclick="toggleMenu();">Strona domowa</a></li> -->
+				<li><a href="{% url 'start' %}" onclick="toggleMenu();">Strona główna</a></li>
+				<li><a href="{% url 'register' pk=pk %}" onclick="toggleMenu();">Zarejestruj się</a></li>
+				<li><a href="{% url 'register_sedzia' pk=pk %}" onclick="toggleMenu();">Rejestracja sędziego</a></li>
+				<li><a href="{% url 'login' pk=pk%}" onclick="toggleMenu();">Logowanie</a></li>
+			{% endif %}
+
+
+		</ul>
+	</header>
+
+		<div class="container p-0 pt-5 mt-5">
+
+		{% block content %}
+		
+		{% endblock content %}
+
+		{% include 'snippets/footer.html' %}
+
+	</div>
+
+<script type="text/javascript">
+		window.addEventListener('scroll', function(){
+			const header = document.querySelector('header');
+			header.classList.toggle("sticky", window.scrollY > 0);
+			});
+
+			function toggleMenu(){
+			const MenuToggle=document.querySelector('.MenuToggle');
+			const navigation = document.querySelector('.navigation');
+			MenuToggle.classList.toggle('active');
+			navigation.classList.toggle('active');
+			}
+
+
+
+		function increaseValueX() {
+			  var value = parseInt(document.getElementById('inputX').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputX').value = value;
+			}
+
+			function decreaseValueX() {
+			  var value = parseInt(document.getElementById('inputX').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputX').value = value;
+			}
+
+		function increaseValueXx() {
+			  var value = parseInt(document.getElementById('inputXx').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputXx').value = value;
+			}
+
+			function decreaseValueXx() {
+			  var value = parseInt(document.getElementById('inputXx').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputXx').value = value;
+			}
+		function increaseValuedziewiec() {
+			  var value = parseInt(document.getElementById('inputdziewiec').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputdziewiec').value = value;
+			}
+
+			function decreaseValuedziewiec() {
+			  var value = parseInt(document.getElementById('inputdziewiec').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputdziewiec').value = value;
+			}
+		function increaseValueosiem() {
+			  var value = parseInt(document.getElementById('inputosiem').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputosiem').value = value;
+			}
+
+			function decreaseValueosiem() {
+			  var value = parseInt(document.getElementById('inputosiem').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputosiem').value = value;
+			}
+		function increaseValuesiedem() {
+			  var value = parseInt(document.getElementById('inputsiedem').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputsiedem').value = value;
+			}
+
+			function decreaseValuesiedem() {
+			  var value = parseInt(document.getElementById('inputsiedem').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputsiedem').value = value;
+			}
+		function increaseValueszesc() {
+			  var value = parseInt(document.getElementById('inputszesc').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputszesc').value = value;
+			}
+
+			function decreaseValueszesc() {
+			  var value = parseInt(document.getElementById('inputszesc').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputszesc').value = value;
+			}
+		function increaseValuepiec() {
+			  var value = parseInt(document.getElementById('inputpiec').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputpiec').value = value;
+			}
+
+			function decreaseValuepiec() {
+			  var value = parseInt(document.getElementById('inputpiec').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputpiec').value = value;
+			}
+		function increaseValuecztery() {
+			  var value = parseInt(document.getElementById('inputcztery').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputcztery').value = value;
+			}
+
+			function decreaseValuecztery() {
+			  var value = parseInt(document.getElementById('inputcztery').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputcztery').value = value;
+			}
+		function increaseValuetrzy() {
+			  var value = parseInt(document.getElementById('inputtrzy').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputtrzy').value = value;
+			}
+
+			function decreaseValuetrzy() {
+			  var value = parseInt(document.getElementById('inputtrzy').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputtrzy').value = value;
+			}
+		function increaseValuedwa() {
+			  var value = parseInt(document.getElementById('inputdwa').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputdwa').value = value;
+			}
+
+			function decreaseValuedwa() {
+			  var value = parseInt(document.getElementById('inputdwa').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputdwa').value = value;
+			}
+		function increaseValuejeden() {
+			  var value = parseInt(document.getElementById('inputjeden').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputjeden').value = value;
+			}
+
+			function decreaseValuejeden() {
+			  var value = parseInt(document.getElementById('inputjeden').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputjeden').value = value;
+			}
+		function increaseValuekara_punktowa() {
+			  var value = parseInt(document.getElementById('inputkara_punktowa').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value++;
+			  document.getElementById('inputkara_punktowa').value = value;
+			}
+
+			function decreaseValuekara_punktowa() {
+			  var value = parseInt(document.getElementById('inputkara_punktowa').value, 10);
+			  value = isNaN(value) ? 0 : value;
+			  value < 1 ? value = 1 : '';
+			  value--;
+			  document.getElementById('inputkara_punktowa').value = value;
+			}
+	</script>
+
+
+	</body>
+
+
+</html>

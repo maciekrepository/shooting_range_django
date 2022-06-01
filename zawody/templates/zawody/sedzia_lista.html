@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Sędziowie</h1>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <table class="table table-hover table-bordered table-responsive mx-auto w-auto align-middle md:text-center">
+      	<thead class="table-secondary">
+        	<tr>
+				<td class="m"><b>Zawody</b></td>
+				<td class="m"><b>Sędzia</b></td>
+				<td class="m"><b>Licencja sędziego</b></td>
+				<td class="m"><b>Klasa</b></td>
+				<td class="m"><b>Edytuj</b></td>
+				<td class="m"><b>Usuwanie</b></td>
+			</tr>
+		</thead>
+        	{% for osoba in object_list %}
+        	<tr>
+	            <td class="m">{{ osoba.zawody }}</td>
+	        	<td class="m">{{ osoba.sedzia }}</td>
+	        	<td class="m">{{ osoba.sedzia.licencja_sedziego }}</td>
+	        	<td class="m">{{ osoba.sedzia.klasa_sedziego }}</td>
+				<td><a href="{% url 'sedzia_edit' osoba.sedzia.id pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><p class="m m-0 p-0">Edytuj sędziego</p></a></td>
+				<td><a href="{% url 'sedzia_delete' osoba.pk pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><p class="m m-0 p-0">Usuń sędziego</p></a></td>
+			</tr>	
+        	{% endfor %}
+      </table>
+    </div>
+	<div class="d-flex justify-content-center" >
+		<div>
+			<a href="{% url 'dodaj_sedziego' pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"<p class="m m-0 p-0">Dodaj sędziego</a></a>
+		</div>
+	</div>
+  </div>
+
+
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		<div class="container pt-6">
+{% for encjawyniki in wyniki %}
+		
+			<div class="d-flex justify-content-center" >
+				<div>
+					{% for i in zawody_nazwa %}
+						{% if forloop.counter == forloop.parentloop.counter %}
+						<h3>{{ i }}</h3>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Klasyfikacja</b></td>
+									<td class="m"><b>Zawodnik</b></td>
+									<td class="m"><b>X</b></td>
+									<td class="m"><b>10</b></td>
+									<td class="m"><b>9</b></td>
+									<td class="m"><b>8</b></td>
+									<td class="m"><b>7</b></td>
+									<td class="m"><b>6</b></td>
+									<td class="m"><b>5</b></td>
+									<td class="m"><b>4</b></td>
+									<td class="m"><b>3</b></td>
+									<td class="m"><b>2</b></td>
+									<td class="m"><b>1</b></td>
+									<td class="m"><b>Kara</b></td>
+									<!-- <td class="m"><b>Suma</b></td> -->
+									<td class="m"><b>Wynik</b></td>
+									{% if user.rts %}
+									<td class="m"><b>Usuń z konkurencji</b></td>
+									{% endif %}
+								</tr>
+							</thead>
+							{% for osoba in encjawyniki %}
+							<tr>
+								<td class="m">{{forloop.counter}}</td>
+								<td class="m">{{osoba.zawodnik}}</td>
+								<td class="m">{{osoba.X}}</td>
+								<td class="m">{{osoba.Xx}}</td>
+								<td class="m">{{osoba.dziewiec}}</td>
+								<td class="m">{{osoba.osiem}}</td>
+								<td class="m">{{osoba.siedem}}</td>
+								<td class="m">{{osoba.szesc}}</td>
+								<td class="m">{{osoba.piec}}</td>
+								<td class="m">{{osoba.cztery}}</td>
+								<td class="m">{{osoba.trzy}}</td>
+								<td class="m">{{osoba.dwa}}</td>
+								<td class="m">{{osoba.jeden}}</td>
+								<td class="m">{{osoba.kara_punktowa}}</td>
+								<!-- <td class="m">{{osoba.wynik}}</td> -->
+								<td class="m">{{osoba.result}}</td>
+								{% if user.rts %}
+								<td class="m p-0 m-0"> <a href="{% url 'konkurencja_delete' osoba.id pk %}" class="btn btn-sm btn-secondary active" role="button" aria-pressed="true"><p class="m m-0 p-0">Usuń zawodnika</p></a></td>
+								{% endif %}
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center" >
+				<div>
+					{% for j in sedziowie %}
+						{% if forloop.counter == forloop.parentloop.counter %}
+								<p class="m">Sędziowie: {% for k in j %} {{k.0}} {{k.1}} {% if not forloop.last%},{% endif %} {% endfor %}</p>			
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<br>
+{% endfor %}
+{% if klasyfikacja_generalna_display %}
+			<div class="d-flex justify-content-center" >
+				<div>
+					<h3>Klasyfikacja generalna</h3>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-bordered table-responsive mx-auto w-auto align-middle md:text-center table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Klasyfikacja</b></td>
+									<td class="m"><b>Zawodnik</b></td>
+									<td class="m"><b>X</b></td>
+									<td class="m"><b>10</b></td>
+									<td class="m"><b>9</b></td>
+									<td class="m"><b>8</b></td>
+									<td class="m"><b>7</b></td>
+									<td class="m"><b>6</b></td>
+									<td class="m"><b>5</b></td>
+									<td class="m"><b>4</b></td>
+									<td class="m"><b>3</b></td>
+									<td class="m"><b>2</b></td>
+									<td class="m"><b>1</b></td>
+									<td class="m"><b>Suma</b></td>
+								</tr>
+							</thead>
+							{% for osoba in klasyfikacja_generalna %}
+							<tr>
+								<td class="m">{{forloop.counter}}</td>
+								<td class="m">{{osoba.zawodnik}}</td>
+								<td class="m">{{osoba.X}}</td>
+								<td class="m">{{osoba.Xx}}</td>
+								<td class="m">{{osoba.dziewiec}}</td>
+								<td class="m">{{osoba.osiem}}</td>
+								<td class="m">{{osoba.siedem}}</td>
+								<td class="m">{{osoba.szesc}}</td>
+								<td class="m">{{osoba.piec}}</td>
+								<td class="m">{{osoba.cztery}}</td>
+								<td class="m">{{osoba.trzy}}</td>
+								<td class="m">{{osoba.dwa}}</td>
+								<td class="m">{{osoba.jeden}}</td>
+								<td class="m">{{osoba.wynik}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>	
+				</div>
+			</div>
+{% endif %}
+
+		{% if request.user.is_admin %}
+			<div class="d-flex justify-content-center" >
+				<div>
+					<a href="{% url 'exportexcel' pk%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+						Eksport excel
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+
+
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	
+
+	<head>
+		<title>Zawody strzeleckie</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link href="{% static 'css/static.css' %}" rel="stylesheet">
+	    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+	</head>
+
+{% block content %}
+
+  <div class="container justify-content-center">
+  	<div class="d-flex justify-content-center pt-5 pb-2">
+  		<h1>Przejdź do turnieju</h1>
+  	</div>
+    <div class="row justify-content-center pt-5 pb-5 col-auto">
+     
+		{% for turniej in object_list %}
+		<div class="col-auto pt-2">
+			<a href="{% url 'home' turniej.id %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{turniej.nazwa}}</a>
+		</div>
+		{% endfor %}
+	</div>
+  </div>
+
+
+
+
+{% endblock content %}
+
+
+</html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+{% load tailwind_filters %}
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-4 mx-auto">
+  	<div class="row justify-content-center">
+
+  		<div class="col-auto">
+		    <div class="d-flex justify-content-center pt-5 pb-5">
+		      <h3>Edytuj profil</h3>
+		    </div>
+  			<div class="table-responsive">
+					<form method="post">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed my-1">
+							{% csrf_token %}
+							{{form.as_table}}
+						</table>
+						<button type="submit" class="mt-5 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">Zapisz</button>
+					</form>
+				</div>
+			</div>
+		</div>
+  </div>
+</section>
+
+{% endblock content %}	

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="d-flex justify-content-center pt-5 pb-5">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Konkurencje</h1>
+    </div>
+    <div class="row justify-content-center">
+      <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed">
+      	<thead class="table-secondary">
+        	<tr>
+				<td class="m"><b>Nazwa</b></td>
+				<td class="m"><b>Liczba strzałów</b></td>
+				<td class="m"><b>Edycja</b></td>
+				<td class="m"><b>Usuwanie</b></td>
+
+			</tr>
+		</thead>
+        	{% for konkurencja in object_list %}
+        	<tr>
+	            <td class="m">{{ konkurencja.nazwa }}</td>
+	        	<td class="m">{{ konkurencja.liczba_strzalow }}</td>
+				<td class="m"><a href="{% url 'zawody_edit' konkurencja.pk pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Edytuj</a></td>
+				<td class="m"><a href="{% url 'zawody_delete' konkurencja.pk pk %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Usuń</a></td>
+			</tr>	
+        	{% endfor %}
+      </table>
+    </div>
+	<div class="d-flex justify-content-center" >
+		<div>
+			<a href="{% url 'dodaj_zawody' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Dodaj konkurencję</a>
+		</div>
+	</div>
+  </div>
+
+
+
+
+{% endblock content %}
+
+
